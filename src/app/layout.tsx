@@ -44,7 +44,7 @@ export default function RootLayout({
           <Paper
             sx={{
               ...style,
-              width: '80%',
+              width: '75%',
               marginBottom: 'auto',
               marginLeft: 'auto',
               marginRight: 'auto',
