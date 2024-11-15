@@ -1,4 +1,6 @@
+export const ApplicationName = 'Techspert QA interview test';
+
 export const BaseBreadcrumb = {
-  title: 'TXP QA interview test',
+  title: ApplicationName,
   path: '/',
 };

@@ -1,3 +1,4 @@
+import { ApplicationName } from '@/libs/react/router/breadcrumbs';
 import { EditNote, SyncAlt, TableView } from '@mui/icons-material';
 import { Box, Card, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
@@ -47,7 +48,7 @@ const Item = ({
 
 export default function Home() {
   return (
-    <PageContainer title="TXP QA interview test">
+    <PageContainer title={ApplicationName}>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

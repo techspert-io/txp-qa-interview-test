@@ -1,3 +1,4 @@
+import { ApplicationName } from '@/libs/react/router/breadcrumbs';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -20,7 +21,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'TXP QA interview test',
+  title: ApplicationName,
   description: 'Simple application for test automation',
 };
 
