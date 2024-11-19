@@ -1,8 +1,7 @@
-import { ApplicationName } from '@/libs/react/router/breadcrumbs';
+import { PageTitleAndNavigation } from '@/libs/react/components/title';
 import { EditNote, SyncAlt, TableView } from '@mui/icons-material';
 import { Box, Card, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { PageContainer } from '@toolpad/core';
 import Link from 'next/link';
 
 const icons = {
@@ -48,7 +47,8 @@ const Item = ({
 
 export default function Home() {
   return (
-    <PageContainer title={ApplicationName}>
+    <>
+      <PageTitleAndNavigation />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -65,6 +65,6 @@ export default function Home() {
         />
       </Grid>
       <Typography>Some copy about the interview text task - TBC</Typography>
-    </PageContainer>
+    </>
   );
 }

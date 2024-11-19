@@ -3,8 +3,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Paper } from '@mui/material';
-import { AppProvider } from '@toolpad/core';
+import { Container, Paper } from '@mui/material';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -40,21 +39,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{ ...style, paddingTop: 24, paddingBottom: 24 }}
       >
-        <AppProvider sx={style}>
-          <Paper
-            sx={{
-              ...style,
-              width: '75%',
-              marginBottom: 'auto',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              paddingTop: 2,
-              paddingBottom: 2,
-            }}
-          >
-            {children}
-          </Paper>
-        </AppProvider>
+        <Paper
+          sx={{
+            ...style,
+            width: '75%',
+            marginBottom: 'auto',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            paddingTop: 2,
+            paddingBottom: 2,
+          }}
+        >
+          <Container>{children}</Container>
+        </Paper>
       </body>
     </html>
   );

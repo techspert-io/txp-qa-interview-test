@@ -1,3 +1,4 @@
+import { PageTitleAndNavigation } from '@/libs/react/components/title';
 import { BaseBreadcrumb } from '@/libs/react/router/breadcrumbs';
 import {
   Button,
@@ -8,14 +9,11 @@ import {
   TextField,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { PageContainer } from '@toolpad/core';
 
 export default function Form() {
   return (
-    <PageContainer
-      title="Form"
-      breadcrumbs={[BaseBreadcrumb, { title: 'Form', path: '/form' }]}
-    >
+    <>
+      <PageTitleAndNavigation pageTitle="Form" breadcrumbs={[BaseBreadcrumb]} />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -96,6 +94,6 @@ export default function Form() {
           </Button>
         </Grid>
       </Grid>
-    </PageContainer>
+    </>
   );
 }
