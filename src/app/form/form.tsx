@@ -224,7 +224,7 @@ export const Form = () => {
                 <MenuItem value="associate-or-trade">
                   Associate or Trade qualification
                 </MenuItem>
-                <MenuItem value="bachelors">Bachelor's degree</MenuItem>
+                <MenuItem value="bachelors">Bachelor&apos;s degree</MenuItem>
                 <MenuItem value="masters">
                   Masters or other post-graduate degree
                 </MenuItem>

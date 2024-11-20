@@ -30,7 +30,7 @@ export const PageTitleAndNavigation = ({
     {!!breadcrumbs.length && (
       <Breadcrumbs>
         {...breadcrumbs.map(({ title, path }) => (
-          <BreadcrumbLink title={title} path={path} />
+          <BreadcrumbLink key={title} title={title} path={path} />
         ))}
         <Typography sx={{ color: 'text.primary' }}>{pageTitle}</Typography>
       </Breadcrumbs>

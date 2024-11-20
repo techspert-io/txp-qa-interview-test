@@ -17,7 +17,9 @@ export const KeyValueListItem = ({
       <Typography sx={{ fontWeight: 'bold' }}>{label}</Typography>
       <Stack direction="column" alignItems="flex-end">
         {...values.map((value) => (
-          <Typography sx={{ fontWeight: 'lighter' }}>{value}</Typography>
+          <Typography key={value} sx={{ fontWeight: 'lighter' }}>
+            {value}
+          </Typography>
         ))}
       </Stack>
     </Stack>
