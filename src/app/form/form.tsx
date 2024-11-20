@@ -1,19 +1,49 @@
 'use client';
 
+import { KeyValueListItem } from '@/libs/react/components/list-item';
 import {
   Alert,
   Box,
   Button,
+  Divider,
   FormControl,
   InputLabel,
+  List,
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import * as yup from 'yup';
+
+interface IFormValues {
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  dateOfBirth: string;
+  yearsOfExperience: number;
+  educationLevel: string;
+}
+
+enum EducationLevel {
+  HighSchool = 'high-school',
+  College = 'college',
+  Associate = 'associate-or-trade',
+  Bachelors = 'bachelors',
+  Masters = 'masters',
+  Doctorate = 'doctorate',
+}
+
+const EducationLevelDisplay = {
+  [EducationLevel.HighSchool]: 'High school or equivalent',
+  [EducationLevel.College]: 'College',
+  [EducationLevel.Associate]: 'Associate or Trade qualification',
+  [EducationLevel.Bachelors]: "Bachelor's degree",
+  [EducationLevel.Masters]: 'Masters or other post-graduate degree',
+  [EducationLevel.Doctorate]: 'Doctorate',
+};
 
 const validationSchema = yup.object({
   firstName: yup.string().required('First name is required'),
@@ -28,6 +58,7 @@ const validationSchema = yup.object({
 });
 
 export const Form = () => {
+  const [data, setData] = useState<IFormValues | null>(null);
   const now = new Date();
 
   const formik = useFormik({
@@ -43,15 +74,48 @@ export const Form = () => {
       educationLevel: '',
     },
     validationSchema,
-    onSubmit: () => {
-      formik.setStatus('submit-success');
+    onSubmit: (values) => {
+      setData(values);
     },
   });
 
-  return formik.status === 'submit-success' ? (
-    <Box>
-      <Typography>Form submitted successfully</Typography>
-    </Box>
+  return data ? (
+    <List>
+      <KeyValueListItem
+        label="Name"
+        values={[`${data.firstName} ${data.lastName}`]}
+      />
+      <Divider />
+      <KeyValueListItem label="Email address" values={[data.emailAddress]} />
+      {data.dateOfBirth && (
+        <Box>
+          <Divider />
+          <KeyValueListItem label="Date of birth" values={[data.dateOfBirth]} />
+        </Box>
+      )}
+      {isFinite(data.yearsOfExperience) && (
+        <Box>
+          <Divider />
+          <KeyValueListItem
+            label="Years of experience"
+            values={[data.yearsOfExperience.toString()]}
+          />
+        </Box>
+      )}
+      {data.educationLevel && (
+        <Box>
+          <Divider />
+          <KeyValueListItem
+            label="Highest education level"
+            values={[
+              EducationLevelDisplay[
+                data.educationLevel as keyof typeof EducationLevelDisplay
+              ],
+            ]}
+          />
+        </Box>
+      )}
+    </List>
   ) : (
     <Box>
       <form onSubmit={formik.handleSubmit} noValidate>
