@@ -5,19 +5,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Container, Paper } from '@mui/material';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import './globals.css';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
 
 export const metadata: Metadata = {
   title: ApplicationName,
@@ -35,10 +23,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" style={style}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ ...style, paddingTop: 24, paddingBottom: 24 }}
-      >
+      <body style={{ ...style, paddingTop: 24, paddingBottom: 24 }}>
         <Paper
           sx={{
             ...style,
