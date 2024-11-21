@@ -1,70 +1,60 @@
 import { PageTitleAndNavigation } from '@/libs/react/components/title';
 import { EditNote, SyncAlt, TableView } from '@mui/icons-material';
-import { Box, Card, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Link from 'next/link';
-
-const icons = {
-  form: EditNote,
-  table: TableView,
-  networkRequest: SyncAlt,
-};
-
-const Item = ({
-  title,
-  href,
-  icon,
-}: {
-  title: string;
-  href: string;
-  icon: keyof typeof icons;
-}) => {
-  const Icon = icons[icon];
-
-  return (
-    <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-      <Link href={href}>
-        <Card
-          variant="outlined"
-          sx={{
-            minHeight: 75,
-            p: 2,
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-          >
-            <Icon fontSize="large" sx={{ marginRight: 2 }} />
-            <Typography>{title}</Typography>
-          </Box>
-        </Card>
-      </Link>
-    </Grid>
-  );
-};
 
 export default function Home() {
   return (
     <>
       <PageTitleAndNavigation />
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 2, sm: 2, md: 8 }}
-        sx={{ marginBottom: 2 }}
-        display="flex"
-      >
-        <Item title="Form" href="/form" icon="form" />
-        <Item title="Table" href="/table" icon="table" />
-        <Item
-          title="Network request"
-          href="/network-request"
-          icon="networkRequest"
-        />
-      </Grid>
-      <Typography>Some copy about the interview text task - TBC</Typography>
+      <Stack>
+        <Typography>
+          Mock application components for use as a test automation playground.
+        </Typography>
+        <List>
+          <Link href="/form">
+            <ListItem>
+              <ListItemIcon>
+                <EditNote fontSize="large" />
+              </ListItemIcon>
+              <ListItemText
+                primary="Form"
+                secondary="Simple form with a variety of input types and basic validation"
+              />
+            </ListItem>
+          </Link>
+
+          <Link href="/table">
+            <ListItem>
+              <ListItemIcon>
+                <TableView fontSize="large" />
+              </ListItemIcon>
+              <ListItemText
+                primary="Table"
+                secondary="A fixed data set, displayed in table format, with more detail shown in a separate page for each entity"
+              />
+            </ListItem>
+          </Link>
+          <Link href="/network-request">
+            <ListItem>
+              <ListItemIcon>
+                <SyncAlt fontSize="large" />
+              </ListItemIcon>
+              <ListItemText
+                primary="Network request"
+                secondary="Provides the ability to retrieve a random fact on request from an external source"
+              />
+            </ListItem>
+          </Link>
+        </List>
+      </Stack>
     </>
   );
 }
