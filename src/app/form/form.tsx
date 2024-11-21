@@ -1,14 +1,12 @@
 'use client';
 
-import { KeyValueListItem } from '@/libs/react/components/list-item';
+import { KeyValueList } from '@/libs/react/components/list-item';
 import {
   Alert,
   Box,
   Button,
-  Divider,
   FormControl,
   InputLabel,
-  List,
   MenuItem,
   Select,
   TextField,
@@ -80,42 +78,33 @@ export const Form = () => {
   });
 
   return data ? (
-    <List>
-      <KeyValueListItem
-        label="Name"
-        values={[`${data.firstName} ${data.lastName}`]}
-      />
-      <Divider />
-      <KeyValueListItem label="Email address" values={[data.emailAddress]} />
-      {data.dateOfBirth && (
-        <Box>
-          <Divider />
-          <KeyValueListItem label="Date of birth" values={[data.dateOfBirth]} />
-        </Box>
-      )}
-      {isFinite(data.yearsOfExperience) && (
-        <Box>
-          <Divider />
-          <KeyValueListItem
-            label="Years of experience"
-            values={[data.yearsOfExperience.toString()]}
-          />
-        </Box>
-      )}
-      {data.educationLevel && (
-        <Box>
-          <Divider />
-          <KeyValueListItem
-            label="Highest education level"
-            values={[
-              EducationLevelDisplay[
-                data.educationLevel as keyof typeof EducationLevelDisplay
-              ],
-            ]}
-          />
-        </Box>
-      )}
-    </List>
+    <KeyValueList
+      items={[
+        { label: 'Name', values: [`${data.firstName} ${data.lastName}`] },
+        { label: 'Email address', values: [data.emailAddress] },
+        { label: 'Date of birth', values: [data.dateOfBirth] },
+        ...(isFinite(data.yearsOfExperience)
+          ? [
+              {
+                label: 'Years of experience',
+                values: [data.yearsOfExperience.toString()],
+              },
+            ]
+          : []),
+        ...(data.educationLevel
+          ? [
+              {
+                label: 'Highest education level',
+                values: [
+                  EducationLevelDisplay[
+                    data.educationLevel as keyof typeof EducationLevelDisplay
+                  ],
+                ],
+              },
+            ]
+          : []),
+      ]}
+    />
   ) : (
     <Box>
       <form onSubmit={formik.handleSubmit} noValidate>

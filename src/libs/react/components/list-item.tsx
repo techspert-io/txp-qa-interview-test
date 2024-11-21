@@ -1,4 +1,9 @@
-import { ListItem, Stack, Typography } from '@mui/material';
+import { Box, Divider, List, ListItem, Stack, Typography } from '@mui/material';
+
+export interface IKeyValueListItem {
+  label: string;
+  values: string[];
+}
 
 export const KeyValueListItem = ({
   label,
@@ -24,4 +29,15 @@ export const KeyValueListItem = ({
       </Stack>
     </Stack>
   </ListItem>
+);
+
+export const KeyValueList = ({ items }: { items: IKeyValueListItem[] }) => (
+  <List>
+    {...items.map((item, index) => (
+      <Box>
+        <KeyValueListItem key={item.label} {...item} />
+        {index < items.length - 1 && <Divider />}
+      </Box>
+    ))}
+  </List>
 );

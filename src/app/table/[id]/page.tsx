@@ -1,7 +1,7 @@
-import { KeyValueListItem } from '@/libs/react/components/list-item';
+import { KeyValueList } from '@/libs/react/components/list-item';
 import { PageTitleAndNavigation } from '@/libs/react/components/title';
 import { BaseBreadcrumb } from '@/libs/react/router/breadcrumbs';
-import { Alert, Box, Divider, List } from '@mui/material';
+import { Alert, Box } from '@mui/material';
 import { TableData } from '../data';
 
 export default async function DetailsPage({
@@ -20,28 +20,40 @@ export default async function DetailsPage({
         pageTitle={fullName}
         breadcrumbs={[BaseBreadcrumb, { title: 'Table', path: '/table' }]}
       />
+
       {data ? (
-        <List>
-          <KeyValueListItem
-            label="Name"
-            values={[`${data.firstName} ${data.lastName}`]}
-          />
-          <Divider />
-          <KeyValueListItem label="Email address" values={[data.email]} />
-          <Divider />
-          <KeyValueListItem
-            label="Country / timezone"
-            values={[`${data.country} (${data.timezone})`]}
-          />
-          <Divider />
-          <KeyValueListItem label="Currency" values={[data.currency]} />
-          <Divider />
-          <KeyValueListItem label="Job title" values={[data.jobTitle]} />
-          <Divider />
-          <KeyValueListItem label="Company" values={[data.company]} />
-          <Divider />
-          <KeyValueListItem label="Skills" values={data.skills} />
-        </List>
+        <KeyValueList
+          items={[
+            {
+              label: 'Name',
+              values: [`${data.firstName} ${data.lastName}`],
+            },
+            {
+              label: 'Email address',
+              values: [data.email],
+            },
+            {
+              label: 'Country / timezone',
+              values: [`${data.country} (${data.timezone})`],
+            },
+            {
+              label: 'Currency',
+              values: [data.currency],
+            },
+            {
+              label: 'Job title',
+              values: [data.jobTitle],
+            },
+            {
+              label: 'Company',
+              values: [data.company],
+            },
+            {
+              label: 'Skills',
+              values: data.skills,
+            },
+          ]}
+        />
       ) : (
         <Alert severity="error" sx={{ width: '100%' }}>
           Data not found
