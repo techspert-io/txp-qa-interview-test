@@ -34,8 +34,8 @@ export const KeyValueListItem = ({
 export const KeyValueList = ({ items }: { items: IKeyValueListItem[] }) => (
   <List>
     {...items.map((item, index) => (
-      <Box>
-        <KeyValueListItem key={item.label} {...item} />
+      <Box key={item.label}>
+        <KeyValueListItem {...item} />
         {index < items.length - 1 && <Divider />}
       </Box>
     ))}

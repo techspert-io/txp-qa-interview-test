@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyValueList } from '@/libs/react/components/list-item';
+import { KeyValueList } from '@/libs/react/components/list';
 import {
   Alert,
   Box,

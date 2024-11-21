@@ -1,4 +1,4 @@
-import { KeyValueList } from '@/libs/react/components/list-item';
+import { KeyValueList } from '@/libs/react/components/list';
 import { PageTitleAndNavigation } from '@/libs/react/components/title';
 import { BaseBreadcrumb } from '@/libs/react/router/breadcrumbs';
 import { Alert, Box } from '@mui/material';
