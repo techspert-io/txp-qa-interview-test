@@ -16,7 +16,7 @@ export default function Home() {
       <PageTitleAndNavigation />
       <Stack>
         <Typography>
-          Mock application components for use as a test automation playground.
+          Mock application components for use as a test automation playground
         </Typography>
         <List>
           <Link href="/form">
