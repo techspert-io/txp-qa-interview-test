@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Techspert QA interview test
 
-## Getting Started
+This repository contains:
+1. A simple mock application with a variety of components for use as a test automation playground
+2. A basic, playwright based, test automation framework with unimplemented test scenarios
 
-First, run the development server:
+## Getting started
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+> **Note**: these instructions assume you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed
+
+First install the packages and playwright dependencies:
+
+```
+npm i
+npx playwright install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build and serve the application:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run serve
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The current (unimplemented) tests can be run using:
 
-## Learn More
+```
+npx playwright test
+```
 
-To learn more about Next.js, take a look at the following resources:
+## The interview task
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The `/tests` folder contains 5 unimplemented test scenarios, in each case, the test name gives an indication of the application functionality the test scenario is expected to assess. Each test visits the relevant page in the application, but then performs no additional actions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Your task is to write the test logic that assesses the application functionality, as indicated by the test name. There will be time within the interview process to review and discuss your solutions and any challenges you encountered in the process. You are welcome to create a pull request against the repository if you wish to share your solutions prior to the interview, but this is not required.
 
-## Deploy on Vercel
+### Automation tool
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This repository has [playwright](https://playwright.dev/) installed as the default test automation tool. You may install and use an alternative test automation tool, depending on your level of familiarity with different tools.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Application testability
+
+You may make changes to the application code if you feel they are necessary to improve the testability of the application. Please do not make changes to the application functionality.
