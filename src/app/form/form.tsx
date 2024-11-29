@@ -34,7 +34,7 @@ enum EducationLevel {
   Doctorate = 'doctorate',
 }
 
-const EducationLevelDisplay = {
+const EducationLevelDisplay: Record<string, string> = {
   [EducationLevel.HighSchool]: 'High school or equivalent',
   [EducationLevel.College]: 'College',
   [EducationLevel.Associate]: 'Associate or Trade qualification',
@@ -95,11 +95,7 @@ export const Form = () => {
           ? [
               {
                 label: 'Highest education level',
-                values: [
-                  EducationLevelDisplay[
-                    data.educationLevel as keyof typeof EducationLevelDisplay
-                  ],
-                ],
+                values: [EducationLevelDisplay[data.educationLevel]],
               },
             ]
           : []),
