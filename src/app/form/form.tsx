@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 
 interface IFormValues {
@@ -55,7 +55,7 @@ const validationSchema = yup.object({
   educationLevel: yup.string(),
 });
 
-export const Form = () => {
+export const Form: React.FC = () => {
   const [data, setData] = useState<IFormValues | null>(null);
   const now = new Date();
 

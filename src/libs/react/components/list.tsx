@@ -5,13 +5,10 @@ export interface IKeyValueListItem {
   values: string[];
 }
 
-export const KeyValueListItem = ({
-  label,
-  values,
-}: {
+export const KeyValueListItem: React.FC<{
   label: string;
   values: string[];
-}) => (
+}> = ({ label, values }) => (
   <ListItem>
     <Stack
       sx={{ width: '100%' }}

@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import React from 'react';
 import { ApplicationName } from '../router/breadcrumbs';
 
 export interface Breadcrumb {
@@ -8,7 +9,7 @@ export interface Breadcrumb {
   path?: string;
 }
 
-const BreadcrumbLink = ({ title, path }: Breadcrumb) => (
+const BreadcrumbLink: React.FC<Breadcrumb> = ({ title, path }) => (
   <Link
     underline="hover"
     color="inherit
