@@ -1,24 +1,22 @@
 import { expect, Page } from '@playwright/test';
 import { NetworkPage } from '../pageObject/network.page';
 
-
 export class NetworkAssertions {
-  private networkPagePage: NetworkPage;
+  private networkPage: NetworkPage;
   
   constructor(page: Page) {
-        this.networkPagePage = new NetworkPage(page);
+        this.networkPage = new NetworkPage(page);
   }
 
-
   async verifyDogFactsAPIResponseBody(body: string){
-    await expect(typeof body).toBe('string');
+    expect(typeof body).toBe('string');
   }
 
   async verifyRandomFactAlert(){
-    await expect(this.networkPagePage.alert).toBeVisible({timeout: 20000});
-    await expect(this.networkPagePage.alert).toHaveText(/Did you know\?.+/);
+    await expect(this.networkPage.alert).toBeVisible({timeout: 20000}); //Note: I added this timeout because some times the alert takes a while to appear
+    await expect(this.networkPage.alert).toHaveText(/Did you know\?.+/);
 
-    const fact = await this.networkPagePage.alert.textContent();
+    const fact = await this.networkPage.alert.textContent();
     console.log('fact text:', fact);
   }
 }

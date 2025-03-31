@@ -9,7 +9,9 @@
     "lint": "next lint",
     "serve": "next build && next start",
     "form-tests": "npx playwright test --grep \\[Form\\] --headed",
-    "network-tests": "npx playwright test --grep \\[Network-req\\] --headed"
+    "network-tests": "npx playwright test --grep \\[Network-req\\] --headed",
+    "table-tests": "npx playwright test --grep \\[Table\\] --headed",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
