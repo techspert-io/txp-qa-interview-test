@@ -1,6 +1,7 @@
 # Techspert QA interview test
 
 This repository contains:
+
 1. A simple mock application with a variety of components for use as a test automation playground
 2. A basic, playwright based, test automation framework with unimplemented test scenarios
 

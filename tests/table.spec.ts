@@ -11,7 +11,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/table');
 });
 
-
 test('[Table] details of all individuals are displayed', async () => {
   const tableHeaders = ['Name', 'Company', 'Job title', '']; // Note: The last column is empty because it is a button for access to 'more details'
   await tableAssertions.verifyTableHeadersDisplayed(tableHeaders);

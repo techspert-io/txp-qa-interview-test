@@ -3,7 +3,6 @@ import { FormAssertions } from './assertions/form.assertions';
 import { FormInputData } from './Interfaces/form.interface';
 import { FormOperations } from './operations/form.operations';
 
-
 let formOperations: FormOperations;
 let formAssertions: FormAssertions;
 let formData: FormInputData;
@@ -34,15 +33,12 @@ test('[Form] can submit the form with minimal data', async () => {
   });
 });
 
-
-test('[Form] cannot submit the form with an invalid email address',
-  async () => {
-    formData = {
-      ...formData,
-      email: 'marko.vasquez'
-    };
-    await formOperations.fillForm(formData);
-    await formOperations.submit();
-    await formAssertions.verifyInvalidEmailErrorPresent();
-  },
-);
+test('[Form] cannot submit the form with an invalid email address', async () => {
+  formData = {
+    ...formData,
+    email: 'marko.vasquez',
+  };
+  await formOperations.fillForm(formData);
+  await formOperations.submit();
+  await formAssertions.verifyInvalidEmailErrorPresent();
+});

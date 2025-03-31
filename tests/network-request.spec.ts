@@ -12,13 +12,11 @@ test.beforeEach(async ({ page }) => {
   networkOperations = new NetworkOperations(page);
 });
 
-
 test('[Network-req] can retrieve a random fact using UI', async ({ page }) => {
   await page.goto('/network-request');
   await networkOperations.getRandomFact();
   await networkAssertions.verifyRandomFactAlert();
 });
-
 
 test('[Network-req] can retrieve a random fact from the API', async () => {
   const apiContext = await request.newContext();
@@ -26,7 +24,7 @@ test('[Network-req] can retrieve a random fact from the API', async () => {
   const body = await response.json();
   const fact = body.data[0];
   const attributes = fact.attributes;
-  
+
   networkAssertions.verifyDogFactsAPIResponseBody(attributes.body);
   console.log('Dog fact:', attributes.body);
 });

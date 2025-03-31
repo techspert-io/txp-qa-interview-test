@@ -3,9 +3,9 @@ import { FormPage } from '../pageObject/form.page';
 
 export class FormAssertions {
   private formPage: FormPage;
-  
+
   constructor(page: Page) {
-        this.formPage = new FormPage(page);
+    this.formPage = new FormPage(page);
   }
 
   async verifySubmittedValues({
@@ -30,12 +30,18 @@ export class FormAssertions {
 
   async verifyValidationErrorsPresent() {
     await expect(this.formPage.alert).toBeVisible();
-    await expect(this.formPage.alert).toHaveText('Review the highlighted errors and try again');
+    await expect(this.formPage.alert).toHaveText(
+      'Review the highlighted errors and try again',
+    );
   }
-  
-  async verifyInvalidEmailErrorPresent(){
+
+  async verifyInvalidEmailErrorPresent() {
     await this.verifyValidationErrorsPresent();
-    await expect(this.formPage.getInputHelperText('emailAddress')).toBeVisible();
-    await expect(this.formPage.getInputHelperText('emailAddress')).toHaveText('Please enter a valid email address');
+    await expect(
+      this.formPage.getInputHelperText('emailAddress'),
+    ).toBeVisible();
+    await expect(this.formPage.getInputHelperText('emailAddress')).toHaveText(
+      'Please enter a valid email address',
+    );
   }
 }
