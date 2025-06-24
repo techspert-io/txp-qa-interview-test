@@ -53,7 +53,7 @@ const handleGetQuestionClick = async (): Promise<ISlimQuestion | void> => {
   };
 };
 
-export const Facts = () => {
+export const Questions = () => {
   const [question, setQuestion] = useState<ISlimQuestion | undefined>();
   const [showAnswer, setShowAnswer] = useState(false);
   const [loading, setLoading] = useState(false);
