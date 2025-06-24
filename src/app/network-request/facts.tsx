@@ -1,32 +1,39 @@
 'use client';
 
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  Button,
-  CircularProgress,
-} from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Alert, Box, Button, CircularProgress } from '@mui/material';
 import { useState } from 'react';
 
 interface IResponse {
-  data: IFact[];
+  response_code: number;
+  results: IQuestion[];
 }
 
-interface IFact {
-  id: string;
+interface IQuestion {
   type: string;
-  attributes: {
-    body: string;
-  };
+  difficulty: string;
+  category: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
 }
 
-const handleClick = async (): Promise<string | void> => {
+interface ISlimQuestion {
+  question: string;
+  answer: string;
+}
+
+const decodeBase64 = (input: string) =>
+  Buffer.from(input, 'base64').toString('utf-8');
+
+const handleGetQuestionClick = async (): Promise<ISlimQuestion | void> => {
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 6) + 7 * 1000),
   );
 
-  const response = await fetch('https://dogapi.dog/api/v2/facts');
+  const response = await fetch(
+    'https://opentdb.com/api.php?amount=1&type=multiple&encode=base64',
+  );
 
   if (!response.ok) {
     return;
@@ -34,69 +41,92 @@ const handleClick = async (): Promise<string | void> => {
 
   const body: IResponse = await response.json();
 
-  if (!body.data.length) {
+  if (!body.results.length) {
     return;
   }
 
-  const [{ attributes }] = body.data;
+  const [{ question, correct_answer }] = body.results;
 
-  return attributes.body;
+  return {
+    question: decodeBase64(question),
+    answer: decodeBase64(correct_answer),
+  };
 };
 
 export const Facts = () => {
-  const [fact, setFact] = useState('');
+  const [question, setQuestion] = useState<ISlimQuestion | undefined>();
+  const [showAnswer, setShowAnswer] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Button
         variant="contained"
         fullWidth
-        sx={{ marginBottom: 2 }}
         onClick={async () => {
-          setFact('');
+          setQuestion(undefined);
+          setShowAnswer(false);
           setLoading(true);
           setError(false);
 
-          const fact = await handleClick();
+          const question = await handleGetQuestionClick();
 
-          if (!fact) {
+          if (!question) {
+            setLoading(false);
             setError(true);
             return;
           }
 
-          setFact(fact);
+          setQuestion(question);
           setLoading(false);
         }}
       >
         {loading ? (
           <CircularProgress size="1.5rem" sx={{ color: '#FFFFFF' }} />
         ) : (
-          'Get a fact'
+          'Get a question'
         )}
       </Button>
-      {fact && (
-        <Alert
-          severity="info"
-          sx={{ width: '100%' }}
-          onClose={() => {
-            setFact('');
-          }}
-        >
-          <AlertTitle>Did you know?</AlertTitle>
-          {fact}
-        </Alert>
+      {question && (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Alert
+            severity="info"
+            sx={{ flexGrow: 1 }}
+            onClose={() => {
+              setQuestion(undefined);
+              setShowAnswer(false);
+            }}
+            icon={<HelpOutlineIcon />}
+          >
+            {question.question}
+          </Alert>
+          {showAnswer ? (
+            <Alert severity="success" sx={{ flexGrow: 1 }}>
+              {question.answer}
+            </Alert>
+          ) : (
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => {
+                setShowAnswer(true);
+              }}
+            >
+              Reveal answer
+            </Button>
+          )}
+        </Box>
       )}
       {error && (
         <Alert
           severity="error"
-          sx={{ width: '100%' }}
+          sx={{ flexGrow: 1 }}
           onClose={() => {
             setError(false);
           }}
         >
-          Failed to fetch a fact, please try again
+          Failed to fetch a question, please try again
         </Alert>
       )}
     </Box>
