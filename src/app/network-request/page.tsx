@@ -1,7 +1,7 @@
 import { PageTitleAndNavigation } from '@/libs/react/components/title';
 import { BaseBreadcrumb } from '@/libs/react/router/breadcrumbs';
 import { Box } from '@mui/material';
-import { Facts } from './facts';
+import { Questions } from './questions';
 
 export default function NetworkRequest() {
   return (
@@ -10,7 +10,7 @@ export default function NetworkRequest() {
         pageTitle="Network request"
         breadcrumbs={[BaseBreadcrumb]}
       />
-      <Facts />
+      <Questions />
     </Box>
   );
 }
