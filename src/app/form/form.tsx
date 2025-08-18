@@ -1,6 +1,7 @@
 'use client';
 
 import { KeyValueList } from '@/libs/react/components/list';
+import { CustomersService } from '@/libs/services/customer.service';
 import { IUser, UsersService } from '@/libs/services/users.service';
 import {
   Alert,
@@ -64,6 +65,7 @@ export const Form: React.FC = () => {
   const now = new Date();
 
   const usersService = new UsersService();
+  const customersService = new CustomersService();
 
   useEffect(() => {
     usersService.getAll().then(({ users }) => setUsers(users));
@@ -87,7 +89,9 @@ export const Form: React.FC = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      setData(values);
+      customersService.register(values).then(() => {
+        setData(values);
+      });
     },
   });
 
