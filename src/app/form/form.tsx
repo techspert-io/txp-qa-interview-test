@@ -1,6 +1,8 @@
 'use client';
 
 import { KeyValueList } from '@/libs/react/components/list';
+import { CustomersService } from '@/libs/services/customer.service';
+import { IUser, UsersService } from '@/libs/services/users.service';
 import {
   Alert,
   Box,
@@ -13,7 +15,7 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 interface IFormValues {
@@ -23,6 +25,7 @@ interface IFormValues {
   dateOfBirth: string;
   yearsOfExperience: number;
   educationLevel: string;
+  pointOfContact: number;
 }
 
 enum EducationLevel {
@@ -53,11 +56,23 @@ const validationSchema = yup.object({
   dateOfBirth: yup.date(),
   yearsOfExperience: yup.number(),
   educationLevel: yup.string(),
+  pointOfContact: yup.number().required(),
 });
 
 export const Form: React.FC = () => {
+  const [users, setUsers] = useState<IUser[]>([]);
   const [data, setData] = useState<IFormValues | null>(null);
   const now = new Date();
+
+  const usersService = new UsersService();
+  const customersService = new CustomersService();
+
+  useEffect(() => {
+    usersService.getAll().then(({ users }) => setUsers(users));
+  }, []);
+
+  const formatUserDisplayName = (user?: IUser) =>
+    user ? `${user.firstName} ${user.lastName} (${user.email})` : 'Unknown';
 
   const formik = useFormik({
     initialValues: {
@@ -70,10 +85,13 @@ export const Form: React.FC = () => {
       )}-${String(now.getDate()).padStart(2, '0')}`,
       yearsOfExperience: 0,
       educationLevel: '',
+      pointOfContact: 0,
     },
     validationSchema,
     onSubmit: (values) => {
-      setData(values);
+      customersService.register(values).then(() => {
+        setData(values);
+      });
     },
   });
 
@@ -99,6 +117,14 @@ export const Form: React.FC = () => {
               },
             ]
           : []),
+        {
+          label: 'Point of contact',
+          values: [
+            formatUserDisplayName(
+              users.find(({ id }) => id === data.pointOfContact),
+            ),
+          ],
+        },
       ]}
     />
   ) : (
@@ -214,6 +240,28 @@ export const Form: React.FC = () => {
                   Masters or other post-graduate degree
                 </MenuItem>
                 <MenuItem value="doctorate">Doctorate</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid size={12}>
+            <FormControl fullWidth>
+              <InputLabel id="form-point-of-contact-label">
+                Point of contact
+              </InputLabel>
+              <Select
+                id="pointOfContact"
+                label="Point of contact"
+                labelId="form-point-of-contact-label"
+                sx={{ marginTop: 'auto' }}
+                {...formik.getFieldProps('pointOfContact')}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              >
+                {...users.map((user) => (
+                  <MenuItem value={user.id} key={user.id}>
+                    {formatUserDisplayName(user)}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
